@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ジャンル別レコメンド検索</title>
+  <script async src="https://cse.google.com/cse.js?cx=1117e710dbe7440ea"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      padding: 2em;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      padding: 1em;
+      border-radius: 8px;
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+    }
+    select, input {
+      width: 100%;
+      padding: 0.5em;
+      margin-top: 0.3em;
+    }
+    button {
+      margin-top: 1.5em;
+      padding: 0.8em 2em;
+      width: 100%;
+      font-size: 1em;
+    }
+    .gcse-search {
+      margin-top: 2em;
+    }
+  </style>
+</head>
+<body>
+  <h1>ジャンル別レコメンド検索</h1>
+
+  <form id="searchForm">
+    <label>ジャンル
+      <select id="genre">
+        <option>サプリ</option>
+        <option>映画</option>
+        <option>アニメ</option>
+        <option>小説</option>
+        <option>漫画</option>
+        <option>飲食店</option>
+        <option>通販</option>
+        <option>地域イベント</option>
+      </select>
+    </label>
+
+    <label>サブジャンル
+      <input type="text" id="subgenre" placeholder="例：美容 / 洋画 / カフェ など">
+    </label>
+
+    <label>特徴
+      <input type="text" id="feature" placeholder="例：脂肪燃焼 / 泣ける / 駅近">
+    </label>
+
+    <label>好き・嫌い（自由記述）
+      <input type="text" id="preference" placeholder="例：◯◯は好き、××は嫌い">
+    </label>
+
+    <label>地域（市単位で記入）
+      <input type="text" id="location" placeholder="例：○○市">
+    </label>
+
+    <button type="submit">検索</button>
+  </form>
+
+  <div class="gcse-search" id="standard"></div>
+
+  <script>
+    document.getElementById("searchForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const genre = document.getElementById("genre").value;
+      const subgenre = document.getElementById("subgenre").value;
+      const feature = document.getElementById("feature").value;
+      const preference = document.getElementById("preference").value;
+      const location = document.getElementById("location").value;
+
+      const query = [genre, subgenre, feature, preference, location]
+        .filter(Boolean).join(" ");
+
+      const element = google.search.cse.element.getElement("standard");
+      if (element) {
+        element.execute(query);
+      }
+    });
+
+    window.__gcse = {
+      callback: function () {
+        google.search.cse.element.render({
+          div: "standard",
+          tag: "search"
+        });
+      }
+    };
+  </script>
+</body>
+</html>
