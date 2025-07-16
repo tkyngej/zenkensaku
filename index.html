@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ジャンル別レコメンド検索</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #f5f5f5;
+      padding: 2em;
+    }
+    h1 {
+      text-align: center;
+    }
+    form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 1em;
+      border-radius: 8px;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5em;
+      margin-bottom: 1em;
+    }
+    button {
+      width: 100%;
+      padding: 0.7em;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+<h1>ジャンル別レコメンド検索</h1>
+
+<form onsubmit="search(); return false;">
+  <label>ジャンル</label>
+  <select id="genre">
+    <option value="サプリ">サプリ</option>
+    <option value="飲食店">飲食店</option>
+    <option value="アニメ">アニメ</option>
+    <option value="映画">映画</option>
+    <option value="小説">小説</option>
+    <option value="漫画">漫画</option>
+    <option value="地域イベント">地域イベント</option>
+  </select>
+
+  <label>サブジャンル</label>
+  <input type="text" id="subgenre" placeholder="例：美容 / 洋画 / カフェ など">
+
+  <label>特徴</label>
+  <input type="text" id="feature" placeholder="例：脂肪燃焼 / 泣ける / 駅近">
+
+  <label>好き・嫌い（自由記述）</label>
+  <input type="text" id="preference" placeholder="例：〇〇は好き、××は嫌い">
+
+  <label>地域（市単位で記入）</label>
+  <input type="text" id="area" placeholder="例：〇〇市">
+
+  <button type="submit">検索</button>
+</form>
+
+<script>
+  function search() {
+    const genre = document.getElementById('genre').value;
+    const subgenre = document.getElementById('subgenre').value;
+    const feature = document.getElementById('feature').value;
+    const preference = document.getElementById('preference').value;
+    const area = document.getElementById('area').value;
+
+    const query = `${genre} ${subgenre} ${feature} ${preference} ${area}`;
+
+    const googleUrl = "https://www.google.com/search?q=" + encodeURIComponent(query);
+    window.open(googleUrl, "_blank");
+  }
+</script>
+
+</body>
+</html>
